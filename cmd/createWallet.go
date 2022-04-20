@@ -16,7 +16,10 @@ var createWalletCmd = &cobra.Command{
 	Short: "Creates a new wallet",
 	Long: `Creates a new wallet and provides wallet address and private key.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("createWallet called")
+		fmt.Println("Creating new wallet")
+		wallet := CreateNewWallet(rpc.DevnetRPCEndpoint)
+		fmt.Println("Public Key:" + wallet.account.PublicKey.ToBase58())
+		fmt.Println("Private Key Saved in 'data' file")
 	},
 }
 
