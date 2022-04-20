@@ -14,9 +14,13 @@ import (
 var importWalletCmd = &cobra.Command{
 	Use:   "importWallet",
 	Short: "Imports and existing wallet",
-	Long: `Imports an existing wallet from a given private key.`,
+	Long: `Imports an existing wallet from a given private key in the 'data' file and returns a wallet object.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("importWallet called")
+		fmt.Println("Importing wallet from the 'key_data' file.")
+		wallet, _ := ImportOldWallet(rpc.DevnetRPCEndpoint)
+			fmt.Println("Public Key:" + wallet.account.PublicKey.ToBase58())
+			balance, _ := GetBalance()
+			fmt.Println("Wallet balance:" + strconv.ltoa(int(balance/1e9)) + "SOL")
 	},
 }
 

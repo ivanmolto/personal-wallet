@@ -32,3 +32,16 @@ func CreateNewWallet(RPCEndpoint string) Wallet {
 		client.NewClient(RPCEndpoint),
 	}
 }
+
+func ImportOldWallet(privateKey []byte, RPCEndpoint string) (Wallet, error) {
+	// import a wallet with bytes slice private key
+	wallet, err := types.AccountFromBytes(privateKey)
+	if err != nil {
+		return Wallet{}, err
+	}
+
+	return Wallet {
+		wallet, 
+		client.NewClient(RPCEndpoint),
+	}, nil
+}
