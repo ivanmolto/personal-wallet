@@ -45,3 +45,17 @@ func ImportOldWallet(privateKey []byte, RPCEndpoint string) (Wallet, error) {
 		client.NewClient(RPCEndpoint),
 	}, nil
 }
+
+func GetBalance() (uint64, error){
+	wallet, _ := ImportOldWallet(rpc.DevnetRPCEndpoint)
+	balance, err := wallet.c.GetBalance(
+		context.TODO(), //request context
+		wallet.account.PublicKey.ToBase58() // wallet to fetch balance for
+	)
+	if err != nil{
+		return 0, nil
+	}
+	// The functin returns us the balance in lamports.
+	// We can convert this to SOL by dividing with 1e9
+	return balance, nil
+}
